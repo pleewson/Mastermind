@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class GuessServiceTest {
 
@@ -19,8 +20,9 @@ class GuessServiceTest {
 
     @BeforeEach
     void setUp() {
-        guessService = new GuessService();
+        GameService gameService = mock(GameService.class);
         game = new Game();
+        guessService = new GuessService(gameService);
         playerGuess = new ArrayList<>();
         colors = new ArrayList<>();
     }
