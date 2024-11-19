@@ -2,10 +2,18 @@ package com.mastermind.service;
 
 import com.mastermind.model.Game;
 import com.mastermind.model.Guess;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class GuessService {
+
+    private GameService gameService;
+
+    public GuessService(GameService gameService) {
+        this.gameService = gameService;
+    }
 
     public Guess checkGuess(List<String> playerGuess, Game game) {
         List<String> secretCode = game.getSecretCode();
@@ -34,8 +42,9 @@ public class GuessService {
             }
         }
 
+        Guess guess = new Guess(playerGuess, blackHits, whiteHits);
+        gameService.addGuessToHistory(guess, game);
 
-        return new Guess(playerGuess, blackHits, whiteHits);
+        return guess;
     }
-
 }
