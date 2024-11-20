@@ -1,6 +1,7 @@
 package com.mastermind.service;
 
 import com.mastermind.model.Game;
+import com.mastermind.model.GameStatus;
 import com.mastermind.model.Guess;
 import org.springframework.stereotype.Service;
 
@@ -42,9 +43,29 @@ public class GuessService {
             }
         }
 
+        checkIfPlayerLose(game);
+        checkIfPlayerWon(game,blackHits);
+
         Guess guess = new Guess(playerGuess, blackHits, whiteHits);
         gameService.addGuessToHistory(guess, game);
 
         return guess;
     }
+
+
+    //todo test
+    private void checkIfPlayerWon(Game game, int blackHits) {
+        if (game.getSecretCode().size() == blackHits) {
+            game.setStatus(GameStatus.PLAYER_WON);
+        }
+    }
+
+
+    //todo test
+    private void checkIfPlayerLose(Game game) {
+        if (game.getGuessHistory().size() == 10) {
+            game.setStatus(GameStatus.PLAYER_LOST);
+        }
+    }
+
 }

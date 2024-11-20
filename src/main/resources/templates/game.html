@@ -6,48 +6,25 @@
 </head>
 <body>
 
-<form method="post" th:action="@{/submit}">
-    <label for="colorSet1">Choose first color set:</label>
-    <select name="colorSet1" id="colorSet1">
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-        <option value="green">Green</option>
-        <option value="yellow">Yellow</option>
-        <option value="white">White</option>
-        <option value="black">Black</option>
-    </select>
+<form method="post" action="/secretColors">
+    <h3>Wybierz swoje kolory</h3>
 
-    <label for="colorSet2">Choose second color set:</label>
-    <select name="colorSet2" id="colorSet2">
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-        <option value="green">Green</option>
-        <option value="yellow">Yellow</option>
-        <option value="white">White</option>
-        <option value="black">Black</option>
-    </select>
+    <div th:each="index : ${#numbers.sequence(1, difficulty)}">
+        <label for="color-field-[[${index}]]">Kolor [[${index}]]:</label>
+        <select name="colors" id="color-field-[[${index}]]">
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+            <option value="white">White</option>
+            <option value="black">Black</option>
+        </select>
+        <br>
+    </div>
 
-    <label for="colorSet3">Choose third color set:</label>
-    <select name="colorSet3" id="colorSet3">
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-        <option value="green">Green</option>
-        <option value="yellow">Yellow</option>
-        <option value="white">White</option>
-        <option value="black">Black</option>
-    </select>
+    <button type="submit">Confirm</button>
+</form>
 
-    <label for="colorSet4">Choose fourth color set:</label>
-    <select name="colorSet4" id="colorSet4">
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-        <option value="green">Green</option>
-        <option value="yellow">Yellow</option>
-        <option value="white">White</option>
-        <option value="black">Black</option>
-    </select>
-
-    <button type="submit">Submit</button>
 </form>
 
 
