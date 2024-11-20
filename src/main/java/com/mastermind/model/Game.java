@@ -11,10 +11,13 @@ import java.util.List;
 public class Game {
     private static Game instance;
 
+    private GameStatus status;
     List<String> secretCode;
     List<Guess> guessHistory;
 
-    public Game(){
+
+    public Game() {
+        this.status = GameStatus.IN_PROGRESS;
         this.secretCode = new ArrayList<>();
         this.guessHistory = new ArrayList<>();
     }
