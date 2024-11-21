@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>home</title>
+    <link rel="stylesheet" type="text/css" href="home.css">
 </head>
-<link rel="stylesheet" type="text/css" href="../static/style.css">
 <body>
 
-<div class="center">
-    <form method="post" action="/startGameWithComputer">
-        <input type="number" id="amount" name="amount" min="4" max="5" required>
-        <button type="submit">vs Computer</button>
+<div>
+    <div>
+        <span> Mastermind </span>
+    </div>
+
+    <form method="get" action="/secret-code">
+        <button>vs Player</button>
     </form>
 
-<!--    <form method="post" action="/secretCode">-->
-<!--        <input type="number" id="amount" name="amount" min="4" max="5" required>-->
-<!--        <button type="submit">vs Player</button>-->
-<!--    </form>-->
+    <form method="post" action="/start-game-vs-computer">
+        <button>vs Computer</button>
+    </form>
 </div>
-
 
 </body>
 </html>

@@ -1,58 +1,201 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mastermind Game</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="script.js" defer></script>
+    <title>game</title>
+
 </head>
 <body>
 
-<h1>Mastermind Game</h1>
 
-<!-- Formularz do wyboru kolorów -->
-<form method="post" action="/submitGuess">
-
-    <!-- Wyswietlanie rzędów do wyboru kolorów -->
-    <div th:each="rowIndex : ${#numbers.sequence(1, 10)}">
-        <div class="row">
-            <span>Rząd <span th:text="${rowIndex}"></span></span>
-
-            <!-- Generowanie kolorów tylko w bieżącym rzędzie (currentRound) -->
-            <div th:each="colorIndex : ${#numbers.sequence(1, difficulty)}">
-                <label th:for="'color-' + ${rowIndex} + '-' + ${colorIndex}">Kolor [[${colorIndex}]]:</label>
-                <select th:name="'colors'"
-                        th:id="'color-' + ${rowIndex} + '-' + ${colorIndex}"
-                        th:disabled="${rowIndex != currentRound}">
-                    <option value="red"
-                            th:selected="${rowIndex == currentRound && guessHistory != null && rowIndex > 1 && guessHistory[rowIndex - 2].colors[colorIndex - 1] == 'red'}">Red</option>
-                    <option value="blue"
-                            th:selected="${rowIndex == currentRound && guessHistory != null && rowIndex > 1 && guessHistory[rowIndex - 2].colors[colorIndex - 1] == 'blue'}">Blue</option>
-                    <option value="green"
-                            th:selected="${rowIndex == currentRound && guessHistory != null && rowIndex > 1 && guessHistory[rowIndex - 2].colors[colorIndex - 1] == 'green'}">Green</option>
-                    <option value="yellow"
-                            th:selected="${rowIndex == currentRound && guessHistory != null && rowIndex > 1 && guessHistory[rowIndex - 2].colors[colorIndex - 1] == 'yellow'}">Yellow</option>
-                    <option value="black"
-                            th:selected="${rowIndex == currentRound && guessHistory != null && rowIndex > 1 && guessHistory[rowIndex - 2].colors[colorIndex - 1] == 'black'}">Black</option>
-                    <option value="white"
-                            th:selected="${rowIndex == currentRound && guessHistory != null && rowIndex > 1 && guessHistory[rowIndex - 2].colors[colorIndex - 1] == 'white'}">White</option>
-                </select>
+<div class="container">
+    <div id="mastermind">Mastermind</div>
+    <div class="game">
+        <div class=guesses>
+            <div id="secretCode" class="secretCode">hidden</div>
+            <div id="g10" class="guess-row">
+                <div id="g10-c1">color1</div>
+                <div id="g10-c2">color2</div>
+                <div id="g10-c3">color3</div>
+                <div id="g10-c4">color4</div>
+            </div>
+            <div id="g9" class="guess-row">
+                <div id="g9-c1">color1</div>
+                <div id="g9-c2">color2</div>
+                <div id="g9-c3">color3</div>
+                <div id="g9-c4">color4</div>
+            </div>
+            <div id="g8" class="guess-row">
+                <div id="g8-c1">color1</div>
+                <div id="g8-c2">color2</div>
+                <div id="g8-c3">color3</div>
+                <div id="g8-c4">color4</div>
+            </div>
+            <div id="g7" class="guess-row">
+                <div id="g7-c1">color1</div>
+                <div id="g7-c2">color2</div>
+                <div id="g7-c3">color3</div>
+                <div id="g7-c4">color4</div>
+            </div>
+            <div id="g6" class="guess-row">
+                <div id="g6-c1">color1</div>
+                <div id="g6-c2">color2</div>
+                <div id="g6-c3">color3</div>
+                <div id="g6-c4">color4</div>
+            </div>
+            <div id="g5" class="guess-row">
+                <div id="g5-c1">color1</div>
+                <div id="g5-c2">color2</div>
+                <div id="g5-c3">color3</div>
+                <div id="g5-c4">color4</div>
+            </div>
+            <div id="g4" class="guess-row">
+                <div id="g4-c1">color1</div>
+                <div id="g4-c2">color2</div>
+                <div id="g4-c3">color3</div>
+                <div id="g4-c4">color4</div>
+            </div>
+            <div id="g3" class="guess-row">
+                <div id="g3-c1">color1</div>
+                <div id="g3-c2">color2</div>
+                <div id="g3-c3">color3</div>
+                <div id="g3-c4">color4</div>
+            </div>
+            <div id="g2" class="guess-row">
+                <div id="g2-c1">color1</div>
+                <div id="g2-c2">color2</div>
+                <div id="g2-c3">color3</div>
+                <div id="g2-c4">color4</div>
+            </div>
+            <div id="g1" class="guess-row">
+                <div id="g1-c1">color1</div>
+                <div id="g1-c2">color2</div>
+                <div id="g1-c3">color3</div>
+                <div id="g1-c4">color4</div>
             </div>
 
-            <!-- W pozostałych rzędach ustawienie kolorów z guessHistory -->
-            <div th:if="${rowIndex != currentRound}">
-                <div th:each="colorIndex : ${#numbers.sequence(1, difficulty)}">
-                    <input type="text"
-                           th:name="'color-' + ${rowIndex} + '-' + ${colorIndex}"
-                           th:value="${guessHistory != null && guessHistory[rowIndex - 1] != null ? guessHistory[rowIndex - 1].colors[colorIndex - 1] : ''}" disabled>
+        </div>
+
+        <div class="hits">
+            <div id="hit10">
+                <div class="flex h-r1">
+                    <div class="h1"></div>
+                    <div class="h2"></div>
+                </div>
+                <div class="flex h-r2">
+                    <div class="h3"></div>
+                    <div class="h4"></div>
                 </div>
             </div>
 
-            <br><br>
-        </div>
-    </div>
+            <div id="hit9">
+                <div class="flex h-r1">
+                    <div class="h1"></div>
+                    <div class="h2"></div>
+                </div>
+                <div class="flex h-r2">
+                    <div class="h3"></div>
+                    <div class="h4"></div>
+                </div>
+            </div>
 
-    <button type="submit">Submit Guess</button>
-</form>
+            <div id="hit8">
+                <div class="flex h-r1">
+                    <div class="h1"></div>
+                    <div class="h2"></div>
+                </div>
+                <div class="flex h-r2">
+                    <div class="h3"></div>
+                    <div class="h4"></div>
+                </div>
+            </div>
+
+            <div id="hit7">
+                <div class="flex h-r1">
+                    <div class="h1"></div>
+                    <div class="h2"></div>
+                </div>
+                <div class="flex h-r2">
+                    <div class="h3"></div>
+                    <div class="h4"></div>
+                </div>
+            </div>
+
+            <div id="hit6">
+                <div class="flex h-r1">
+                    <div class="h1"></div>
+                    <div class="h2"></div>
+                </div>
+                <div class="flex h-r2">
+                    <div class="h3"></div>
+                    <div class="h4"></div>
+                </div>
+            </div>
+
+            <div id="hit5">
+                <div class="flex h-r1">
+                    <div class="h1"></div>
+                    <div class="h2"></div>
+                </div>
+                <div class="flex h-r2">
+                    <div class="h3"></div>
+                    <div class="h4"></div>
+                </div>
+            </div>
+
+            <div id="hit4">
+                <div class="flex h-r1">
+                    <div class="h1"></div>
+                    <div class="h2"></div>
+                </div>
+                <div class="flex h-r2">
+                    <div class="h3"></div>
+                    <div class="h4"></div>
+                </div>
+            </div>
+
+            <div id="hit3">
+                <div class="flex h-r1">
+                    <div class="h1"></div>
+                    <div class="h2"></div>
+                </div>
+                <div class="flex h-r2">
+                    <div class="h3"></div>
+                    <div class="h4"></div>
+                </div>
+            </div>
+
+            <div id="hit2">
+                <div class="flex h-r1">
+                    <div class="h1"></div>
+                    <div class="h2"></div>
+                </div>
+                <div class="flex h-r2">
+                    <div class="h3"></div>
+                    <div class="h4"></div>
+                </div>
+            </div>
+
+            <div id="hit1">
+                <div class="flex h-r1">
+                    <div class="h1"></div>
+                    <div class="h2"></div>
+                </div>
+                <div class="flex h-r2">
+                    <div class="h3"></div>
+                    <div class="h4"></div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <button id="checkButton">Check</button>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>
