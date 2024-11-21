@@ -30,7 +30,7 @@
     margin-top: 12px;
     width: 50px;
     height: 50px;
-    background-color: white;
+    background-color: saddlebrown;
 }
 
 .hits {
@@ -161,41 +161,24 @@
     display: flex;
 }
 
-.h3-r2 {
-    background-color: yellow !important;
-}
 
 .h-r1 {
     gap: 10px;
     justify-content: center;
     margin-top: 0px !important;
     height: 20px !important;
+    background-color: saddlebrown !important; ;
 }
 
 .h-r1 div {
     width: 15px !important;
     height: 15px !important;
-    color: white;
+    background-colorcolor: grey;
     margin-top: 0px !important;
     border-radius: 50%;
 }
 
-#h1-r1 {
-    background-color: purple !important;
-}
 
-#h2-r1 {
-    background-color: aqua !important;
-
-}
-
-#h3-r2 {
-    background-color: saddlebrown !important;
-}
-
-#h4-r2 {
-    background-color: brown !important;
-}
 
 .h-r2 div {
     width: 15px !important;
@@ -210,6 +193,7 @@
     justify-content: center;
     margin-top: 0px !important;
     height: 15px !important;
+    background-color: saddlebrown !important; ;
 }
 
 
@@ -218,12 +202,12 @@
 }
 
 .guess-row {
-    opacity: 0.8; /* Nieaktywne rzędy są przyciemnione */
-    pointer-events: none; /* Brak możliwości interakcji */
+    opacity: 0.8;
+    pointer-events: none;
 }
 .guess-row.active-row {
-    opacity: 1; /* Aktywny rząd jest widoczny */
-    pointer-events: auto; /* Aktywny rząd można edytować */
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .center{
@@ -231,18 +215,27 @@
 }
 
 .guess-row div {
-    background-color: white; /* Domyślny kolor tła */
+    background-color: white;
     width: 50px;
     height: 50px;
     margin: 5px;
-    border: 1px solid #ccc; /* Możesz dodać obramowanie, żeby elementy były widoczne */
+    border: 1px solid #ccc;
 }
 
 .disabled {
-    pointer-events: none; /* Zablokuje wszelkie interakcje */
-    opacity: 0.2; /* Możesz też dodać półprzezroczystość, aby zaznaczyć, że rząd jest zablokowany */
+    pointer-events: none;
+    opacity: 0.8;
 }
 
 .hidden{
     display: none;
+}
+
+.h1, .h2, .h3, .h4 {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    display: inline-block;
+    margin: 2px;
+    background-color: green !important;
 }

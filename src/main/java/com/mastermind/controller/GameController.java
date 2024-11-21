@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @Slf4j
@@ -29,31 +28,41 @@ public class GameController {
         this.guessService = guessService;
     }
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String getHome() {
         return "home";
     }
 
 
-    @PostMapping("/startGameWithComputer")
-    public String startGame(@RequestParam int amount, HttpSession session, Model model) {
-        Game game = gameService.startGameWithComputer(amount);
+    @PostMapping("/start-game-vs-computer")
+    public String startGameVsComputer(HttpSession session, Model model) {
+        Game game = gameService.startGameWithComputer(4);
         session.setAttribute("game", game);
-        model.addAttribute("difficulty", amount);
         log.info("colors in game: {}", game.getSecretCode());
-        return "newgame"; //todo change address
+        return "game"; //todo change address
     }
 
 
-    @PostMapping("/secretCode")
-    @ResponseBody
-    public String submitResponses(@RequestParam List<String> colors, HttpSession session, Model model) {
-        Game game = (Game) session.getAttribute("game");
-        game.setSecretCode(colors);
+    @GetMapping("/secret-code")
+    String getGameVsPlayer() {
+        return "secret-code";
+    }
 
-        model.addAttribute("difficulty", game.getSecretCode().size());
-        model.addAttribute("currentRound", 1);
 
+    @PostMapping("/start-game-vs-player")
+    public String submitResponses(@RequestParam String color1,
+                                  @RequestParam String color2,
+                                  @RequestParam String color3,
+                                  @RequestParam String color4,
+                                  HttpSession session) {
+        Game game = new Game();
+        List<String> colors = new ArrayList<>();
+        colors.add(color1);
+        colors.add(color2);
+        colors.add(color3);
+        colors.add(color4);
+        game.setSecretCode(colors); //todo separate to service
+        session.setAttribute("game", game);
 
         log.info("response: {}", colors);
         return "game";
