@@ -1,0 +1,248 @@
+.game {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    height: 750px;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.container {
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    background-color: #8812;
+    text-align: center;
+}
+
+.guesses div {
+    margin-top: 12px;
+    height: 50px;
+    background-color: white;
+}
+
+.guesses {
+    width: 250px;
+}
+
+.hits div {
+    margin-top: 12px;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+}
+
+.hits {
+    margin-top: 62px;
+}
+
+#g1 div {
+    width: 50px;
+    margin-top: 0px;
+    align-content: center;
+}
+
+#g2 div {
+    width: 50px;
+    margin-top: 0px;
+    align-content: center;
+}
+
+#g3 div {
+    width: 50px;
+    margin-top: 0px;
+    align-content: center;
+}
+
+#g4 div {
+    width: 50px;
+    margin-top: 0px;
+    align-content: center;
+}
+
+#g5 div {
+    width: 50px;
+    margin-top: 0px;
+    align-content: center;
+}
+
+#g6 div {
+    width: 50px;
+    margin-top: 0px;
+    align-content: center;
+}
+
+#g7 div {
+    width: 50px;
+    margin-top: 0px;
+    align-content: center;
+}
+
+#g8 div {
+    width: 50px;
+    margin-top: 0px;
+    align-content: center;
+}
+
+#g9 div {
+    width: 50px;
+    margin-top: 0px;
+    align-content: center;
+}
+
+#g10 div {
+    width: 50px;
+    margin-top: 0px;
+    align-content: center;
+}
+
+#g1 {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#g2 {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#g3 {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#g4 {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#g5 {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#g6 {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#g7 {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#g8 {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#g9 {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#g10 {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.h3-r2 {
+    background-color: yellow !important;
+}
+
+.h-r1 {
+    gap: 10px;
+    justify-content: center;
+    margin-top: 0px !important;
+    height: 20px !important;
+}
+
+.h-r1 div {
+    width: 15px !important;
+    height: 15px !important;
+    color: white;
+    margin-top: 0px !important;
+    border-radius: 50%;
+}
+
+#h1-r1 {
+    background-color: purple !important;
+}
+
+#h2-r1 {
+    background-color: aqua !important;
+
+}
+
+#h3-r2 {
+    background-color: saddlebrown !important;
+}
+
+#h4-r2 {
+    background-color: brown !important;
+}
+
+.h-r2 div {
+    width: 15px !important;
+    height: 15px !important;
+    color: white;
+    margin-top: 0px !important;
+    border-radius: 50%;
+}
+
+.h-r2 {
+    gap: 10px;
+    justify-content: center;
+    margin-top: 0px !important;
+    height: 15px !important;
+}
+
+
+#hit1 {
+    align-content: center;
+}
+
+.guess-row {
+    opacity: 0.8; /* Nieaktywne rzędy są przyciemnione */
+    pointer-events: none; /* Brak możliwości interakcji */
+}
+.guess-row.active-row {
+    opacity: 1; /* Aktywny rząd jest widoczny */
+    pointer-events: auto; /* Aktywny rząd można edytować */
+}
+
+.center{
+    justify-content: center;
+}
+
+.guess-row div {
+    background-color: white; /* Domyślny kolor tła */
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    border: 1px solid #ccc; /* Możesz dodać obramowanie, żeby elementy były widoczne */
+}
+
+.disabled {
+    pointer-events: none; /* Zablokuje wszelkie interakcje */
+    opacity: 0.2; /* Możesz też dodać półprzezroczystość, aby zaznaczyć, że rząd jest zablokowany */
+}
+
+.hidden{
+    display: none;
+}

@@ -13,8 +13,7 @@ public class GameService {
 
     private static final String[] AVAILABLE_COLORS = {"red", "blue", "green", "yellow", "white", "black"};
 
-
-    public Game startNewGame(int amount){
+    public Game startGameWithComputer(int amount){
         Game game = new Game();
         game.setSecretCode(generateRandomColors(amount));
         game.setGuessHistory(new ArrayList<>());
