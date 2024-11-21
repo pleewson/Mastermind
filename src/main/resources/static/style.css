@@ -217,4 +217,32 @@
     align-content: center;
 }
 
+.guess-row {
+    opacity: 0.8; /* Nieaktywne rzędy są przyciemnione */
+    pointer-events: none; /* Brak możliwości interakcji */
+}
+.guess-row.active-row {
+    opacity: 1; /* Aktywny rząd jest widoczny */
+    pointer-events: auto; /* Aktywny rząd można edytować */
+}
 
+.center{
+    justify-content: center;
+}
+
+.guess-row div {
+    background-color: white; /* Domyślny kolor tła */
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    border: 1px solid #ccc; /* Możesz dodać obramowanie, żeby elementy były widoczne */
+}
+
+.disabled {
+    pointer-events: none; /* Zablokuje wszelkie interakcje */
+    opacity: 0.2; /* Możesz też dodać półprzezroczystość, aby zaznaczyć, że rząd jest zablokowany */
+}
+
+.hidden{
+    display: none;
+}

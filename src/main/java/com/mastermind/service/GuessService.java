@@ -5,6 +5,7 @@ import com.mastermind.model.GameStatus;
 import com.mastermind.model.Guess;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,8 +19,8 @@ public class GuessService {
 
     public Guess checkGuess(List<String> playerGuess, Game game) {
         List<String> secretCode = game.getSecretCode();
-        List<String> copyOfSecretCode = List.copyOf(secretCode);
-        List<String> playerGuessCopy = List.copyOf(playerGuess);
+        List<String> copyOfSecretCode = new ArrayList<>(secretCode);
+        List<String> playerGuessCopy = new ArrayList<>(playerGuess);
 
 
         int blackHits = 0;
@@ -27,18 +28,18 @@ public class GuessService {
 
 
         for (int i = 0; i < secretCode.size(); i++) {
-            if (playerGuess.get(i).equals(secretCode.get(i))) {
+            if (playerGuessCopy.get(i).equals(copyOfSecretCode.get(i))) {
                 blackHits++;
-                playerGuess.set(i, "correct");
-                secretCode.set(i, "correct");
+                playerGuessCopy.set(i, "correct");
+                copyOfSecretCode.set(i, "correct");
             }
         }
 
-        for (int i = 0; i < secretCode.size(); i++) {
-            for (int j = 0; j < secretCode.size(); j++) {
-                if (!playerGuess.get(i).equals("correct") && !secretCode.get(j).equals("correct")) {
-                    if (playerGuess.get(i).equals(secretCode.get(j))) {
-                        secretCode.set(j, "correct");
+        for (int i = 0; i < copyOfSecretCode.size(); i++) {
+            for (int j = 0; j < copyOfSecretCode.size(); j++) {
+                if (!playerGuessCopy.get(i).equals("correct") && !copyOfSecretCode.get(j).equals("correct")) {
+                    if (playerGuessCopy.get(i).equals(copyOfSecretCode.get(j))) {
+                        copyOfSecretCode.set(j, "correct");
                         whiteHits++;
                         break;
                     }
@@ -47,13 +48,11 @@ public class GuessService {
         }
 
         checkIfPlayerLose(game);
-        checkIfPlayerWon(game, blackHits);
+        checkIfPlayerWon(game,blackHits);
 
-        System.out.println("PLAYER GUESS HUUUUUUUUUUUU COPY " + playerGuessCopy);
+
         Guess guess = new Guess(playerGuessCopy, blackHits, whiteHits);
         gameService.addGuessToHistory(guess, game);
-
-        game.setSecretCode(copyOfSecretCode); //restore original names
 
         return guess;
     }
@@ -69,7 +68,7 @@ public class GuessService {
 
     //todo test
     private void checkIfPlayerLose(Game game) {
-        if (game.getGuessHistory().size() == 10) {
+        if (game.getGuessHistory().size() == 9) {
             game.setStatus(GameStatus.PLAYER_LOST);
         }
     }

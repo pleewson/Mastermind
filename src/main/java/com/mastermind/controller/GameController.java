@@ -1,19 +1,21 @@
 package com.mastermind.controller;
 
+import com.mastermind.DTO.AnswerDTO;
+import com.mastermind.DTO.GuessDTO;
 import com.mastermind.model.Game;
 import com.mastermind.model.Guess;
 import com.mastermind.service.GameService;
 import com.mastermind.service.GuessService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -39,11 +41,12 @@ public class GameController {
         session.setAttribute("game", game);
         model.addAttribute("difficulty", amount);
         log.info("colors in game: {}", game.getSecretCode());
-        return "secret-code"; //todo change address
+        return "newgame"; //todo change address
     }
 
 
     @PostMapping("/secretCode")
+    @ResponseBody
     public String submitResponses(@RequestParam List<String> colors, HttpSession session, Model model) {
         Game game = (Game) session.getAttribute("game");
         game.setSecretCode(colors);
@@ -71,25 +74,23 @@ public class GameController {
 
     //2
     @PostMapping("/submitGuess")
-    public String submitGuess(@RequestParam List<String> colors, HttpSession session, Model model) {
+    public ResponseEntity<AnswerDTO> submitGuess(@RequestBody GuessDTO guess, HttpSession session, Model model) {
         Game game = (Game) session.getAttribute("game");
-
-        guessService.checkGuess(colors, game);
-        log.info("FRONTEND COLORS: {}", colors);
+        Guess resultGuess = guessService.checkGuess(guess.getGuess(), game);
+        log.info("FRONTEND COLORS: {}", guess.getGuess());
         log.info("GAME INFO: SECRET CODE{}", game.getSecretCode());
-        log.info("GAME INFO: HISTORY SIZE{}", game.getGuessHistory().size());
-        log.info("HISTORY [0] {}", game.getGuessHistory().get(0));
+//        log.info("GAME INFO: HISTORY SIZE{}", game.getGuessHistory().size());
+//        log.info("HISTORY [0] {}", game.getGuessHistory().get(0));
 
-//        log.info("GAME INFO: STATUS:{}", game.getStatus());
+        log.info("GAME INFO: STATUS:{}", game.getStatus());
 
-        model.addAttribute("currentRound", game.getGuessHistory().size() + 1);
-        model.addAttribute("guessHistory", game.getGuessHistory());
-        model.addAttribute("difficulty", game.getSecretCode().size());
+        AnswerDTO answerDTO = new AnswerDTO();
+        answerDTO.setGameStatus(game.getStatus());
+        answerDTO.setBlackHits(resultGuess.getBlackHits());
+        answerDTO.setWhiteHits(resultGuess.getWhiteHits());
+        //todo clear it
 
-//        model.addAttribute("gameStatus", game.getStatus());
-
-
-        return "game";
+        return ResponseEntity.ok(answerDTO);
     }
 
 
