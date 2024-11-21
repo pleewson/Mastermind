@@ -1,49 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastermind Game</title>
 </head>
 <body>
 
-<form method="post" action="/secretColors">
-    <h3>Wybierz swoje kolory</h3>
+<h1>Mastermind Game</h1>
 
-    <div th:each="index : ${#numbers.sequence(1, difficulty)}">
-        <label for="color-field-[[${index}]]">Kolor [[${index}]]:</label>
-        <select name="colors" id="color-field-[[${index}]]">
-            <option value="red">Red</option>
-            <option value="blue">Blue</option>
-            <option value="green">Green</option>
-            <option value="yellow">Yellow</option>
-            <option value="white">White</option>
-            <option value="black">Black</option>
-        </select>
-        <br>
+<!-- Formularz do wyboru kolorów -->
+<form method="post" action="/submitGuess">
+
+    <!-- Wyswietlanie rzędów do wyboru kolorów -->
+    <div th:each="rowIndex : ${#numbers.sequence(1, 10)}">
+        <div class="row">
+            <span>Rząd <span th:text="${rowIndex}"></span></span>
+
+            <!-- Generowanie kolorów tylko w bieżącym rzędzie (currentRound) -->
+            <div th:each="colorIndex : ${#numbers.sequence(1, difficulty)}">
+                <label th:for="'color-' + ${rowIndex} + '-' + ${colorIndex}">Kolor [[${colorIndex}]]:</label>
+                <select th:name="'colors'"
+                        th:id="'color-' + ${rowIndex} + '-' + ${colorIndex}"
+                        th:disabled="${rowIndex != currentRound}">
+                    <option value="red"
+                            th:selected="${rowIndex == currentRound && guessHistory != null && rowIndex > 1 && guessHistory[rowIndex - 2].colors[colorIndex - 1] == 'red'}">Red</option>
+                    <option value="blue"
+                            th:selected="${rowIndex == currentRound && guessHistory != null && rowIndex > 1 && guessHistory[rowIndex - 2].colors[colorIndex - 1] == 'blue'}">Blue</option>
+                    <option value="green"
+                            th:selected="${rowIndex == currentRound && guessHistory != null && rowIndex > 1 && guessHistory[rowIndex - 2].colors[colorIndex - 1] == 'green'}">Green</option>
+                    <option value="yellow"
+                            th:selected="${rowIndex == currentRound && guessHistory != null && rowIndex > 1 && guessHistory[rowIndex - 2].colors[colorIndex - 1] == 'yellow'}">Yellow</option>
+                    <option value="black"
+                            th:selected="${rowIndex == currentRound && guessHistory != null && rowIndex > 1 && guessHistory[rowIndex - 2].colors[colorIndex - 1] == 'black'}">Black</option>
+                    <option value="white"
+                            th:selected="${rowIndex == currentRound && guessHistory != null && rowIndex > 1 && guessHistory[rowIndex - 2].colors[colorIndex - 1] == 'white'}">White</option>
+                </select>
+            </div>
+
+            <!-- W pozostałych rzędach ustawienie kolorów z guessHistory -->
+            <div th:if="${rowIndex != currentRound}">
+                <div th:each="colorIndex : ${#numbers.sequence(1, difficulty)}">
+                    <input type="text"
+                           th:name="'color-' + ${rowIndex} + '-' + ${colorIndex}"
+                           th:value="${guessHistory != null && guessHistory[rowIndex - 1] != null ? guessHistory[rowIndex - 1].colors[colorIndex - 1] : ''}" disabled>
+                </div>
+            </div>
+
+            <br><br>
+        </div>
     </div>
 
-    <button type="submit">Confirm</button>
+    <button type="submit">Submit Guess</button>
 </form>
-
-</form>
-
-
-<!--liste z 4 opcjami  -->
-
-<!--lista<id1=r,id2=g,id3=b,id4=d> submit -> backend   -->
-
-<!--  b y g r   -->
-
-<!--  o o o o    x-x-x-x -->
-<!--  o o o o    x-x-x-x -->
-<!--  o o o o    x-x-x-x -->
-<!--  o o o o    x-x-x-x -->
-<!--  o o o o    x-x-x-x -->
-<!--  o o o o    x-x-x-x -->
-<!--  o o o o    x-x-x-x -->
-<!--  o o o o    x-x-x-x -->
-<!--  o o o o    x-x-x-x -->
-<!--  o o o o    x-x-x-x -->
 
 </body>
 </html>

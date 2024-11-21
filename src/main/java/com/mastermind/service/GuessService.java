@@ -18,6 +18,9 @@ public class GuessService {
 
     public Guess checkGuess(List<String> playerGuess, Game game) {
         List<String> secretCode = game.getSecretCode();
+        List<String> copyOfSecretCode = List.copyOf(secretCode);
+        List<String> playerGuessCopy = List.copyOf(playerGuess);
+
 
         int blackHits = 0;
         int whiteHits = 0;
@@ -44,10 +47,13 @@ public class GuessService {
         }
 
         checkIfPlayerLose(game);
-        checkIfPlayerWon(game,blackHits);
+        checkIfPlayerWon(game, blackHits);
 
-        Guess guess = new Guess(playerGuess, blackHits, whiteHits);
+        System.out.println("PLAYER GUESS HUUUUUUUUUUUU COPY " + playerGuessCopy);
+        Guess guess = new Guess(playerGuessCopy, blackHits, whiteHits);
         gameService.addGuessToHistory(guess, game);
+
+        game.setSecretCode(copyOfSecretCode); //restore original names
 
         return guess;
     }
