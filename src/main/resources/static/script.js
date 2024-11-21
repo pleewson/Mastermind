@@ -91,6 +91,9 @@ document.getElementById("checkButton").addEventListener("click", async () => {
             const result = await response.json();
             console.log("Server response:", result);
 
+            updateHits(currentRound, result.blackHits, result.whiteHits);
+            console.log("blackhits" + result.blackHits);
+            console.log("whitehits" + result.whiteHits);
             // Wyświetlanie komunikatu w zależności od statusu gry
             showGameResult(result.gameStatus);
         } else {
@@ -121,6 +124,45 @@ function disableAllColors() {
             div.style.pointerEvents = "none";  // Blokuje interakcje (np. kliknięcia)
         });
     });
+}
+
+
+function updateHits(rowId, blackHits, whiteHits) {
+    const hitRow = document.getElementById(`hit${rowId}`); // Pobiera odpowiedni wiersz np. hit3
+    if (!hitRow) {
+        console.error(`No row found with id: hit${rowId}`);
+        return;
+    }
+
+    // Pobiera wszystkie elementy h1, h2, h3, h4 w odpowiednim rzędzie
+    const hitDivs = hitRow.querySelectorAll(".h1, .h2, .h3, .h4");
+    if (hitDivs.length === 0) {
+        console.error(`No hit elements found in row: hit${rowId}`);
+        return;
+    }
+
+    let index = 0;
+
+    // Ustaw czarne tło dla czarnych trafień
+    for (let i = 0; i < blackHits; i++) {
+        if (index < hitDivs.length) {
+            hitDivs[index].style.setProperty("background-color", "black", "important");
+            index++;
+        }
+    }
+
+    // Ustaw białe tło dla białych trafień
+    for (let i = 0; i < whiteHits; i++) {
+        if (index < hitDivs.length) {
+            hitDivs[index].style.setProperty("background-color", "white", "important");
+            index++;
+        }
+    }
+
+    // Upewnij się, że pozostałe pola są puste
+    for (; index < hitDivs.length; index++) {
+        hitDivs[index].style.backgroundColor = "transparent";
+    }
 }
 
 
