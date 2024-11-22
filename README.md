@@ -24,6 +24,6 @@ Technologies and Tools Used in the Project:
 
 ***Backend:*** Java, Spring Boot (REST API for communication with the frontend)
 
-***Frontend:*** HTML, CSS (gradients and layout optimized for various browsers), JavaScript
+***Frontend:*** HTML, CSS, JavaScript
 
 ***Testing:*** JUnit for game logic 
