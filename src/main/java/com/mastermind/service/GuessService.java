@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class GuessService {
-
     private GameService gameService;
 
     public GuessService(GameService gameService) {
@@ -58,17 +57,15 @@ public class GuessService {
     }
 
 
-    //todo test
-    private void checkIfPlayerWon(Game game, int blackHits) {
+    void checkIfPlayerWon(Game game, int blackHits) {
         if (game.getSecretCode().size() == blackHits) {
             game.setStatus(GameStatus.PLAYER_WON);
         }
     }
 
 
-    //todo test
-    private void checkIfPlayerLose(Game game) {
-        if (game.getGuessHistory().size() == 9) {
+    void checkIfPlayerLose(Game game) {
+        if (game.getGuessHistory().size() >= 9) {
             game.setStatus(GameStatus.PLAYER_LOST);
         }
     }

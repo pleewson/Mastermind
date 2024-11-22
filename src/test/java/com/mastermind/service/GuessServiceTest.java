@@ -1,6 +1,7 @@
 package com.mastermind.service;
 
 import com.mastermind.model.Game;
+import com.mastermind.model.GameStatus;
 import com.mastermind.model.Guess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -107,5 +108,36 @@ class GuessServiceTest {
 
         assertEquals(0, guess.getBlackHits());
         assertEquals(4, guess.getWhiteHits());
+    }
+
+
+    @Test
+    public void testCheckIfPlayerWon() {
+        game.setSecretCode(List.of("red", "blue", "green", "yellow"));
+
+        guessService.checkIfPlayerWon(game, 4);
+
+        assertEquals(GameStatus.PLAYER_WON, game.getStatus());
+    }
+
+
+
+    @Test
+    public void testCheckIfPlayerLose() {
+        List<String> testAnswer = new ArrayList<>();
+        testAnswer.add("black");
+        testAnswer.add("black");
+        testAnswer.add("black");
+        testAnswer.add("black");
+
+        Guess tempGuess = new Guess(testAnswer,0,0);
+
+        for (int i = 0; i < 10; i++) {
+            game.getGuessHistory().add(tempGuess);
+        }
+
+        guessService.checkIfPlayerLose(game);
+
+        assertEquals(GameStatus.PLAYER_LOST, game.getStatus());
     }
 }
