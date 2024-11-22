@@ -102,7 +102,6 @@
 }
 
 
-
 .guess-row div {
     background-color: white;
     width: 50px;
@@ -139,12 +138,12 @@
 }
 
 
-#g11 div{
+#g11 div {
     margin-top: -25px;
     align-content: center;
 }
 
-body{
+body {
     margin: 0;
     background: linear-gradient(135deg, #2c3e50, #34495e, #7f8c8d, #95a5a6);
 }
@@ -157,7 +156,7 @@ body{
     align-items: center;
 }
 
-.hits{
+.hits {
     margin-top: 90px;
 }
 
@@ -176,6 +175,29 @@ body{
     margin-right: 20px;
 }
 
+#quitButton {
+    background-color: darkslategray;
+    color: white;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-right: 20px;
+}
+
+#quitButton:hover {
+    background-color: #45a049;
+}
+
 #checkButton:hover {
     background-color: #45a049;
+}
+
+.hidden{
+    display: none !important;
 }

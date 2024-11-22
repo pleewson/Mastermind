@@ -181,11 +181,15 @@ function updateHits(rowId, blackHits, whiteHits) {
 
 function updateButtonOnGameEnd(status) {
     const checkButton = document.getElementById("checkButton");
+    const quitButton = document.getElementById("quitButton");
 
     if (status === "PLAYER_LOST" || status === "PLAYER_WON") {
-        checkButton.textContent = "Quit";
-        checkButton.onclick = function () {
-            window.location.href = "http://localhost:8080";
+        checkButton.classList.add("hidden"); // Dodaje klasę hidden do checkButton
+        quitButton.classList.remove("hidden"); // Usuwa klasę hidden z quitButton
+
+        quitButton.textContent = "Quit"; // Ustawia tekst przycisku Quit
+        quitButton.onclick = function () {
+            window.location.href = "http://localhost:8080"; // Przekierowuje na stronę główną
         };
     }
 }
