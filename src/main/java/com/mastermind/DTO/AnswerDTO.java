@@ -11,5 +11,4 @@ public class AnswerDTO {
     private GameStatus gameStatus;
     private int blackHits;
     private int whiteHits;
-
 }

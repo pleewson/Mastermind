@@ -2,7 +2,6 @@ package com.mastermind.service;
 
 import com.mastermind.model.Game;
 import com.mastermind.model.Guess;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -64,4 +63,6 @@ class GameServiceTest {
         assertEquals(0, game.getGuessHistory().get(2).getWhiteHits()); //black hits in 3rd tour
         assertEquals(0, game.getGuessHistory().get(2).getWhiteHits()); //white hits in 3rd tour
     }
+
+
 }

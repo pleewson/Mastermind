@@ -1,5 +1,6 @@
 package com.mastermind.service;
 
+import com.mastermind.DTO.AnswerDTO;
 import com.mastermind.model.Game;
 import com.mastermind.model.Guess;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,17 @@ public class GameService {
 
     private static final String[] AVAILABLE_COLORS = {"red", "blue", "green", "yellow", "white", "black"};
 
+
     public Game startGameWithComputer(int amount){
         Game game = new Game();
         game.setSecretCode(generateRandomColors(amount));
-        game.setGuessHistory(new ArrayList<>());
+        return game;
+    }
+
+
+    public Game startGameWithPlayer(List<String> colors){
+        Game game = new Game();
+        game.setSecretCode(colors);
         return game;
     }
 
@@ -38,9 +46,17 @@ public class GameService {
     }
 
 
-    public void addGuessToHistory(Guess guess, Game game) {
-        game.getGuessHistory().add(guess);
+    public AnswerDTO getAnswer(Game game, Guess guess){
+        AnswerDTO answer = new AnswerDTO();
+        answer.setGameStatus(game.getStatus());
+        answer.setBlackHits(guess.getBlackHits());
+        answer.setWhiteHits(guess.getWhiteHits());
+
+        return answer;
     }
 
 
+    public void addGuessToHistory(Guess guess, Game game) {
+        game.getGuessHistory().add(guess);
+    }
 }

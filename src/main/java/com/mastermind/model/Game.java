@@ -21,5 +21,4 @@ public class Game {
         this.secretCode = new ArrayList<>();
         this.guessHistory = new ArrayList<>();
     }
-
 }
