@@ -6,7 +6,12 @@
     align-content: center;
     text-align: center;
     align-items: center;
+    background-color: grey;
+    justify-self: center;
+    border: 2px solid black;
+    font-weight: bold;
 }
+
 
 .container {
     height: 100vh;
@@ -19,7 +24,6 @@
 .guesses div {
     margin-top: 12px;
     height: 50px;
-    background-color: white;
 }
 
 .guesses {
@@ -30,131 +34,11 @@
     margin-top: 12px;
     width: 50px;
     height: 50px;
-    background-color: saddlebrown;
+    background-color: darkgrey;
 }
 
 .hits {
     margin-top: 62px;
-}
-
-#g1 div {
-    width: 50px;
-    margin-top: 0px;
-    align-content: center;
-}
-
-#g2 div {
-    width: 50px;
-    margin-top: 0px;
-    align-content: center;
-}
-
-#g3 div {
-    width: 50px;
-    margin-top: 0px;
-    align-content: center;
-}
-
-#g4 div {
-    width: 50px;
-    margin-top: 0px;
-    align-content: center;
-}
-
-#g5 div {
-    width: 50px;
-    margin-top: 0px;
-    align-content: center;
-}
-
-#g6 div {
-    width: 50px;
-    margin-top: 0px;
-    align-content: center;
-}
-
-#g7 div {
-    width: 50px;
-    margin-top: 0px;
-    align-content: center;
-}
-
-#g8 div {
-    width: 50px;
-    margin-top: 0px;
-    align-content: center;
-}
-
-#g9 div {
-    width: 50px;
-    margin-top: 0px;
-    align-content: center;
-}
-
-#g10 div {
-    width: 50px;
-    margin-top: 0px;
-    align-content: center;
-}
-
-#g1 {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-#g2 {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-#g3 {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-#g4 {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-#g5 {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-#g6 {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-#g7 {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-#g8 {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-#g9 {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-#g10 {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
 }
 
 .flex {
@@ -167,7 +51,7 @@
     justify-content: center;
     margin-top: 0px !important;
     height: 20px !important;
-    background-color: saddlebrown !important; ;
+    background-color: darkgrey !important;;
 }
 
 .h-r1 div {
@@ -177,7 +61,6 @@
     margin-top: 0px !important;
     border-radius: 50%;
 }
-
 
 
 .h-r2 div {
@@ -193,33 +76,44 @@
     justify-content: center;
     margin-top: 0px !important;
     height: 15px !important;
-    background-color: saddlebrown !important; ;
+    background-color: darkgrey !important;;
 }
 
 
-#hit1 {
+#hit1, #hit2, #hit3, #hit4, #hit5, #hit6, #hit7, #hit8, #hit9, #hit10 {
     align-content: center;
 }
 
 .guess-row {
     opacity: 0.8;
     pointer-events: none;
+    display: flex;
+    gap: 5px;
 }
+
+
 .guess-row.active-row {
     opacity: 1;
     pointer-events: auto;
 }
 
-.center{
+.center {
     justify-content: center;
 }
+
+
 
 .guess-row div {
     background-color: white;
     width: 50px;
     height: 50px;
-    margin: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.guess-row div:hover {
+    cursor: pointer;
+    scale: 1.1;
 }
 
 .disabled {
@@ -227,7 +121,7 @@
     opacity: 0.8;
 }
 
-.hidden{
+.hidden {
     display: none;
 }
 
@@ -237,5 +131,51 @@
     border: 1px solid black;
     display: inline-block;
     margin: 2px;
-    background-color: green !important;
+    background-color: silver !important;
+}
+
+#g11 {
+    justify-content: center !important;
+}
+
+
+#g11 div{
+    margin-top: -25px;
+    align-content: center;
+}
+
+body{
+    margin: 0;
+    background: linear-gradient(135deg, #2c3e50, #34495e, #7f8c8d, #95a5a6);
+}
+
+.guesses {
+    display: grid;
+    -webkit-justify-items: center;
+    justify-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.hits{
+    margin-top: 90px;
+}
+
+#checkButton {
+    background-color: darkslategray;
+    color: white;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-right: 20px;
+}
+
+#checkButton:hover {
+    background-color: #45a049;
 }

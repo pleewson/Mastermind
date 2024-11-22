@@ -1,15 +1,22 @@
-const colors = ["red", "blue", "green", "yellow", "white", "black"];
+const colors = ["white", "blue", "green", "yellow", "red", "black"];
 let currentRound = 1; // Zaczynamy od pierwszej rundy
 let checkButton = document.getElementById("checkButton");
-
 
 console.log("current round", currentRound);
 
 // Funkcja zmieniająca kolor na następny w tablicy
 function changeColor(element) {
+    // Sprawdzamy obecny kolor
     let currentColor = element.style.backgroundColor;
-    let nextColorIndex = (colors.indexOf(currentColor) + 1) % colors.length;
-    element.style.backgroundColor = colors[nextColorIndex];
+
+    // Jeśli element nie ma ustawionego koloru, ustawiamy pierwszy kolor z tablicy
+    if (!currentColor) {
+        element.style.backgroundColor = colors[0];
+    } else {
+        // Inaczej zmieniamy kolor na kolejny z tablicy
+        let nextColorIndex = (colors.indexOf(currentColor) + 1) % colors.length;
+        element.style.backgroundColor = colors[nextColorIndex];
+    }
 }
 
 // Dodaj obsługę zdarzeń kliknięcia do elementów 'color'
@@ -84,7 +91,7 @@ document.getElementById("checkButton").addEventListener("click", async () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({guess: colors})
+            body: JSON.stringify({colors: colors})
         });
 
         if (response.ok) {
