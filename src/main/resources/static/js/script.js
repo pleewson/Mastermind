@@ -1,8 +1,7 @@
-const colors = ["white", "blue", "green", "yellow", "red", "black"];
+const colors = ["red", "blue", "green", "yellow", "white", "black"];
 let currentRound = 1; // Zaczynamy od pierwszej rundy
 let checkButton = document.getElementById("checkButton");
 
-console.log("current round", currentRound);
 
 // Funkcja zmieniająca kolor na następny w tablicy
 function changeColor(element) {
@@ -19,10 +18,12 @@ function changeColor(element) {
     }
 }
 
+
 // Dodaj obsługę zdarzeń kliknięcia do elementów 'color'
 document.querySelectorAll(".game div[id^='g'][id$='c1'], .game div[id^='g'][id$='c2'], .game div[id^='g'][id$='c3'], .game div[id^='g'][id$='c4']").forEach((cell) => {
     cell.addEventListener("click", () => changeColor(cell));
 });
+
 
 // Ustaw aktywny rząd
 function setActiveRow() {
@@ -34,6 +35,7 @@ function setActiveRow() {
         activeRow.classList.add("active-row");
     }
 }
+
 
 // Funkcja do konwertowania koloru RGB na nazwę koloru
 function rgbToColorName(rgb) {
@@ -48,6 +50,7 @@ function rgbToColorName(rgb) {
 
     return colorMap[rgb] || rgb; // Jeśli nie ma w mapie, zwróci RGB
 }
+
 
 // Funkcja do zebrania kolorów z aktywnego rzędu
 function getColorsFromActiveRow() {
@@ -67,18 +70,20 @@ function getColorsFromActiveRow() {
     });
 }
 
+
 // Funkcja do wyświetlania popupu z wynikiem
 function showGameResult(status) {
     if (status === 'PLAYER_WON') {
-        checkButton.classList.add("hidden");
+        updateButtonOnGameEnd(status)
         disableAllColors();
         alert("Congratulations, you won!");
     } else if (status === 'PLAYER_LOST') {
-        checkButton.classList.add("hidden");
+        updateButtonOnGameEnd(status)
         disableAllColors();
         alert("Unfortunately, you lost.");
     }
 }
+
 
 // Obsługa kliknięcia przycisku Check
 document.getElementById("checkButton").addEventListener("click", async () => {
@@ -116,6 +121,7 @@ document.getElementById("checkButton").addEventListener("click", async () => {
         setActiveRow();  // Używamy currentRound, nie trzeba przekazywać go jako argument
     }
 });
+
 
 function disableAllColors() {
     // Znajdź wszystkie divy z klasą 'guess-row'
@@ -169,6 +175,18 @@ function updateHits(rowId, blackHits, whiteHits) {
     // Upewnij się, że pozostałe pola są puste
     for (; index < hitDivs.length; index++) {
         hitDivs[index].style.backgroundColor = "transparent";
+    }
+}
+
+
+function updateButtonOnGameEnd(status) {
+    const checkButton = document.getElementById("checkButton");
+
+    if (status === "PLAYER_LOST" || status === "PLAYER_WON") {
+        checkButton.textContent = "Quit";
+        checkButton.onclick = function () {
+            window.location.href = "http://localhost:8080";
+        };
     }
 }
 
