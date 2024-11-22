@@ -4,7 +4,7 @@
 # How to start:
 ```bash
 git clone git@github.com:pleewson/Mastermind.git
-cd mastermind
+cd Mastermind
 mvn spring-boot:run
 ```
 Or run it manually using your preferred IDE (e.g., IntelliJ IDEA or Eclipse).
