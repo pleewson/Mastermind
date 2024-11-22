@@ -1,7 +1,7 @@
 package com.mastermind.controller;
 
 import com.mastermind.DTO.AnswerDTO;
-import com.mastermind.DTO.GuessDTO;
+import com.mastermind.DTO.ColorsDTO;
 import com.mastermind.model.Game;
 import com.mastermind.model.Guess;
 import com.mastermind.service.GameService;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -39,7 +38,7 @@ public class GameController {
         Game game = gameService.startGameWithComputer(4);
         session.setAttribute("game", game);
         log.info("colors in game: {}", game.getSecretCode());
-        return "game"; //todo change address
+        return "game";
     }
 
 
@@ -50,21 +49,18 @@ public class GameController {
 
 
     @PostMapping("/start-game-vs-player")
-    public String submitResponses(@RequestParam String color1,
-                                  @RequestParam String color2,
-                                  @RequestParam String color3,
-                                  @RequestParam String color4,
-                                  HttpSession session) {
+    public ResponseEntity<String> submitResponses(@RequestBody ColorsDTO colorsDTO, HttpSession session) {
         Game game = new Game();
-        List<String> colors = new ArrayList<>();
-        colors.add(color1);
-        colors.add(color2);
-        colors.add(color3);
-        colors.add(color4);
-        game.setSecretCode(colors); //todo separate to service
+        game.setSecretCode(colorsDTO.getColors()); //todo separate to service
         session.setAttribute("game", game);
 
-        log.info("response: {}", colors);
+        log.info("response secretCode: {}", colorsDTO.getColors());
+        return ResponseEntity.ok("OK");
+    }
+
+
+    @GetMapping("/get-game")
+    public String getGame(){
         return "game";
     }
 
@@ -83,10 +79,10 @@ public class GameController {
 
     //2
     @PostMapping("/submitGuess")
-    public ResponseEntity<AnswerDTO> submitGuess(@RequestBody GuessDTO guess, HttpSession session, Model model) {
+    public ResponseEntity<AnswerDTO> submitGuess(@RequestBody ColorsDTO colorsDTO, HttpSession session, Model model) {
         Game game = (Game) session.getAttribute("game");
-        Guess resultGuess = guessService.checkGuess(guess.getGuess(), game);
-        log.info("FRONTEND COLORS: {}", guess.getGuess());
+        Guess resultGuess = guessService.checkGuess(colorsDTO.getColors(), game);
+        log.info("FRONTEND COLORS: {}", colorsDTO.getColors());
         log.info("GAME INFO: SECRET CODE{}", game.getSecretCode());
 //        log.info("GAME INFO: HISTORY SIZE{}", game.getGuessHistory().size());
 //        log.info("HISTORY [0] {}", game.getGuessHistory().get(0));

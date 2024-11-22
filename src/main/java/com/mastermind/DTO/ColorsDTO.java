@@ -7,6 +7,6 @@ import java.util.List;
 
 @Getter
 @Setter
-public class GuessDTO {
-    private List<String> guess;
+public class ColorsDTO {
+    private List<String> colors;
 }
