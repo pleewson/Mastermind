@@ -22,8 +22,8 @@ Enjoy the challenge.
 
 Technologies and Tools Used in the Project:
 
-***Backend:*** Java, Spring Boot (REST API for communication with the frontend)
+***Backend:*** Java, Spring Boot, REST API
 
 ***Frontend:*** HTML, CSS, JavaScript
 
-***Testing:*** JUnit for game logic 
+***Testing:*** JUnit
